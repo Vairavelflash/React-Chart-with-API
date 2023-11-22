@@ -23,9 +23,18 @@ export const Login = () => {
   function handleSubmit(e) {
     e.preventDefault();
     console.log("submit", user);
+   
 
-    dispatch(setUserDetails(user));
-    navigate("/home");
+if((/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/).test(user?.password) ){
+  dispatch(setUserDetails(user));
+  navigate("/home");
+}
+else{
+  alert('Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters')
+}
+
+
+    
   }
   const handleChange = (e) => {
     setUser({
@@ -37,7 +46,7 @@ export const Login = () => {
     <Fragment>
       <div className="flex flex-col items-center justify-center w-full">
       
-            <h1 class="mb-4 my-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl text-white">
+            <h1 className="mb-4 my-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl text-white">
               Login Page
             </h1>
         <form className="max-w" onSubmit={handleSubmit}>
@@ -58,9 +67,9 @@ export const Login = () => {
           </div>
           <div className="mb-5">
             <label className=" mb-2 text-lg font-medium  text-white ">
-              User password
+              User password 
             </label>
-            <input
+            <input 
               type={showPassword ? "text" : "password"}
               id="password"
               value={user?.password}
@@ -81,7 +90,6 @@ export const Login = () => {
             />
             <p className="text-white text-center">Show Password</p>
           
-
           <button
             type="submit"
             className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg text-sm w-full  px-5 py-2.5 text-center"
